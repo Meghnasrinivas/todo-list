@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="todo.css">
+
+</head>
+<body>
+   
+        <h1>Todo App</h1>
+        <div class="grid-container">
+        <input id="todo-input" type="text" placeholder="Enter TODO here">
+        <input  id= "date" type="date">
+        <button id="todo-btn" onclick="addTodo()">Add</button>
+        </div>
+        
+        <div class="todo-container grid-container"></div>
+</body>
+<script>
+ let todoList = [ ];
+ displayItems();
+
+
+    function addTodo()
+    {
+        let inputElement = document.querySelector('#todo-input');
+        let dateElement = document.querySelector('#date');
+        let todoItem = inputElement.value;
+        let todoDate = dateElement.value;
+        todoList.push({item: todoItem , dueDate: todoDate});
+         inputElement.value= '';
+         dateElement.value = '';
+
+         displayItems();
+    } 
+    function displayItems()
+    {
+        let containerElement = document.querySelector('.todo-container');
+        let newHtml = '';
+        for( let i = 0 ; i < todoList.length ; i++)
+        {
+            let {item , dueDate} = todoList[i];
+           newHtml+= `
+            <span>${item}</span>
+              <span>${dueDate}</span>
+            <button id="delete-btn" onclick = "todoList.splice(${i} , 1);
+            displayItems();">Delete</button>
+            `;
+        }
+         containerElement.innerHTML = newHtml ;
+    }
+</script>
+</html>
